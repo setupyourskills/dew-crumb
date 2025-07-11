@@ -21,16 +21,11 @@ end
 
 module.load = function()
 	module.required["core.neorgcmd"].add_commands_from_table({
-		dew = {
-			arg = 1,
+		dew_crumb = {
+			args = 1,
 			subcommands = {
-				crumb = {
-					arg = 1,
-					subcommands = {
-						enable = { args = 0, name = "dew-crumb.enable" },
-						disable = { args = 0, name = "dew-crumb.disable" },
-					},
-				},
+				enable = { args = 0, name = "dew-crumb.enable" },
+				disable = { args = 0, name = "dew-crumb.disable" },
 			},
 		},
 	})
