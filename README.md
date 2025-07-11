@@ -20,7 +20,7 @@ This module is part of the [neorg-dew](https://github.com/setupyourskills/neorg-
 
 ```lua
 {
-  "setupyourskills/neorg-dew-crumb",
+  "setupyourskills/dew-crumb",
   dependencies = {
     "setupyourskills/neorg-dew",
   },
@@ -33,7 +33,7 @@ Make sure all of them are loaded through Neorg’s module system in your config:
 
 ```lua
 ["external.neorg-dew"] = {},
-["external.neorg-dew-crumb"] = {
+["external.dew-crumb"] = {
     config = {
         enabled = true, -- Enable or disable the module on startup
     },
@@ -45,8 +45,8 @@ Make sure all of them are loaded through Neorg’s module system in your config:
 You can enable or disable the breadcrumb module using the following Neorg commands:
 
 ```
-:Neorg crumb enable
-:Neorg crumb disable
+:Neorg dew_crumb enable
+:Neorg dew_crumb disable
 ```
 
 ## How it works
