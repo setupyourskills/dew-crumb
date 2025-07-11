@@ -3,9 +3,13 @@ local modules = neorg.modules
 
 local ts_utils = require("nvim-treesitter.ts_utils")
 
-local autocmd = vim.api.nvim_create_autocmd
+local api = vim.api
+local augroup = api.nvim_create_augroup
+local autocmd = api.nvim_create_autocmd
 
 local module = modules.create("external.neorg-dew-crumb")
+
+local crumb_group = augroup("dew-crumb", { clear = true })
 
 module.setup = function()
 	return {
@@ -17,21 +21,53 @@ end
 
 module.load = function()
 	module.required["core.neorgcmd"].add_commands_from_table({
-		["crumb"] = {
-			args = 0,
-			name = "external.crumb.show",
+		crumb = {
+			min_args = 1,
+			max_args = 1,
+			name = "external.dew-crumb",
+			subcommands = {
+				enable = { args = 0, name = "external.dew-crumb.enable" },
+				disable = { args = 0, name = "external.dew-crumb.disable" },
+			},
 		},
 	})
 
-	autocmd({ "WinScrolled", "BufEnter", "WinEnter", "CursorMoved" }, {
-		pattern = "*.norg",
-		callback = function()
-			module.private.crumb()
-		end,
-	})
+	if module.config.public.enabled then
+		module.private.set_autocmd()
+	end
 end
 
+module.config.public = {
+	enabled = false,
+}
+
 module.private = {
+	enable = function()
+		module.config.public.enabled = true
+
+		module.private.set_autocmd()
+	end,
+	disable = function()
+		module.config.public.enabled = false
+
+		module.private.unset_autocmd()
+		vim.wo.winbar = ""
+	end,
+
+	set_autocmd = function()
+		autocmd({ "WinScrolled", "BufEnter", "WinEnter", "CursorMoved" }, {
+			group = crumb_group,
+			pattern = "*.norg",
+			callback = function()
+				module.private.crumb()
+			end,
+		})
+	end,
+
+	unset_autocmd = function()
+		api.nvim_clear_autocmds({ group = crumb_group })
+	end,
+
 	crumb = function()
 		local node = ts_utils.get_node_at_cursor()
 
@@ -59,14 +95,17 @@ module.private = {
 }
 
 module.on_event = function(event)
-	if event.split_type[2] == "external.crumb.show" then
-		module.private.crumb()
+	if event.split_type[2] == "external.dew-crumb.enable" then
+		module.private.enable()
+	elseif event.split_type[2] == "external.dew-crumb.disable" then
+		module.private.disable()
 	end
 end
 
 module.events.subscribed = {
 	["core.neorgcmd"] = {
-		["external.crumb.show"] = true,
+		["external.dew-crumb.enable"] = true,
+		["external.dew-crumb.disable"] = true,
 	},
 }
 
