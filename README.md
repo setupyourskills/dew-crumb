@@ -33,8 +33,25 @@ Make sure all of them are loaded through Neorg’s module system in your config:
 
 ```lua
 ["external.neorg-dew"] = {},
-["external.neorg-dew-crumb"] = {},
+["external.neorg-dew-crumb"] = {
+    config = {
+        enabled = true, -- Enable or disable the module on startup
+    },
+},
 ```
+
+## Usage
+
+You can enable or disable the breadcrumb module using the following Neorg commands:
+
+```
+:Neorg crumb enable
+:Neorg crumb disable
+```
+
+## How it works
+
+The breadcrumb updates automatically as you move the cursor within `.norg` files, showing the current heading path in the `winbar`.
 
 ## Collaboration and Compatibility
 
