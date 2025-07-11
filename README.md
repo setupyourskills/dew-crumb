@@ -1,16 +1,13 @@
 # neorg-dew-crumb
 
-🌿 **neorg-dew-crumb** is a minimal, focused extension for [Neorg](https://github.com/nvim-neorg/neorg),  
-designed to display a dynamic breadcrumb navigation bar based on the document title and headings.
+🌿 **neorg-dew-crumb** is a minimal, focused [Neorg](https://github.com/nvim-neorg/neorg) extension designed to display a dynamic breadcrumb navigation bar based on the document title and headings.
 
----
+This module is part of the [neorg-dew](https://github.com/setupyourskills/neorg-dew) ecosystem.
 
 ## Features
 
 - Displays a dynamic breadcrumb showing the current heading structure along with the top-level title of your Neorg notes.
 - Lightweight and easily customizable.
-
----
 
 ## Installation
 
@@ -28,3 +25,21 @@ designed to display a dynamic breadcrumb navigation bar based on the document ti
     "setupyourskills/neorg-dew",
   },
 }
+```
+
+## Configuration
+
+Make sure all of them are loaded through Neorg’s module system in your config:
+
+```lua
+["external.neorg-dew"] = {},
+["external.neorg-dew-crumb"] = {},
+```
+
+## Collaboration and Compatibility
+
+This project embraces collaboration and may build on external modules created by other Neorg members, which will be tested regularly to ensure they remain **functional** and **compatible** with the latest versions of Neorg and Neovim.  
+
+## Why **dew**?
+
+Like morning dew, it’s **subtle**, **natural**, and brief, yet vital and effective for any workflow.
