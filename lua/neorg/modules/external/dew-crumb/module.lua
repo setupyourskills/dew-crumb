@@ -55,9 +55,10 @@ module.private = {
   set_autocmd = function()
     autocmd({ "WinScrolled", "BufEnter", "WinEnter", "CursorMoved" }, {
       group = crumb_group,
-      pattern = "*.norg",
       callback = function()
-        module.private.crumb()
+        if vim.bo.filetype == "norg" then
+          module.private.crumb()
+        end
       end,
     })
   end,
