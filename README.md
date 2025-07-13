@@ -21,6 +21,7 @@ This module is part of the [neorg-dew](https://github.com/setupyourskills/neorg-
 ```lua
 {
   "setupyourskills/dew-crumb",
+  ft = "norg",
   dependencies = {
     "setupyourskills/neorg-dew",
   },
