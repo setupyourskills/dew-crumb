@@ -1,4 +1,4 @@
-# neorg-dew-crumb
+# Dew Crumb
 
 🌿 **neorg-dew-crumb** is a minimal, focused [Neorg](https://github.com/nvim-neorg/neorg) extension designed to display a dynamic breadcrumb navigation bar based on the document title and headings.
 
