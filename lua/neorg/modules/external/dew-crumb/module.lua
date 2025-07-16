@@ -72,23 +72,23 @@ module.private = {
 
     local headings = {}
 
-    while true do
-      while node and not node:type():match "^heading%d$" do
-        node = node:parent()
-      end
-
-      if node then
+    while node do
+      if node:type():match "^heading%d$" then
         table.insert(headings, vim.treesitter.get_node_text(node:named_child(1), 0))
-        node = node:parent()
-      else
-        local invert = {}
-        for i = #headings, 1, -1 do
-          table.insert(invert, headings[i])
-        end
-
-        vim.wo.winbar = table.concat(invert, " > ")
-        return
       end
+
+      node = node:parent()
+    end
+
+    if next(headings) ~= nil then
+      local invert = {}
+      for i = #headings, 1, -1 do
+        table.insert(invert, headings[i])
+      end
+
+      vim.wo.winbar = table.concat(invert, " > ")
+    else
+      vim.wo.winbar = require("neorg.core.modules").get_module("external.neorg-dew").get_title()
     end
   end,
 }
