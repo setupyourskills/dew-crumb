@@ -1,5 +1,6 @@
 local neorg = require "neorg.core"
 local modules = neorg.modules
+local neorg_dew = require("neorg.core.modules").get_module "external.neorg-dew"
 
 local ts_utils = require "nvim-treesitter.ts_utils"
 
@@ -88,7 +89,7 @@ module.private = {
 
       vim.wo.winbar = table.concat(invert, " > ")
     else
-      vim.wo.winbar = require("neorg.core.modules").get_module("external.neorg-dew").get_title()
+      vim.wo.winbar = neorg_dew.get_title()
     end
   end,
 }
