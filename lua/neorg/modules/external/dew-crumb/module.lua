@@ -8,7 +8,6 @@ local augroup = api.nvim_create_augroup
 local autocmd = api.nvim_create_autocmd
 
 local module = modules.create "external.dew-crumb"
-local neorg_dew = modules.get_module("external.neorg-dew")
 
 local crumb_group = augroup("dew-crumb", { clear = true })
 
@@ -89,7 +88,7 @@ module.private = {
 
       vim.wo.winbar = table.concat(invert, " > ")
     else
-      vim.wo.winbar = neorg_dew.get_title()
+      vim.wo.winbar = modules.get_module("external.neorg-dew").get_title()
     end
   end,
 }
