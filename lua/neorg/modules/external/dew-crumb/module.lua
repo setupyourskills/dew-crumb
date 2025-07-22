@@ -1,6 +1,5 @@
 local neorg = require "neorg.core"
 local modules = neorg.modules
-local neorg_dew = require("neorg.core.modules").get_module "external.neorg-dew"
 
 local ts_utils = require "nvim-treesitter.ts_utils"
 
@@ -9,6 +8,7 @@ local augroup = api.nvim_create_augroup
 local autocmd = api.nvim_create_autocmd
 
 local module = modules.create "external.dew-crumb"
+local neorg_dew = modules.get_module("external.neorg-dew")
 
 local crumb_group = augroup("dew-crumb", { clear = true })
 
