@@ -75,7 +75,11 @@ module.private = {
 
     while node do
       if node:type():match "^heading%d$" then
-        table.insert(headings, vim.treesitter.get_node_text(node:named_child(1), 0))
+        local node_text = vim.treesitter.get_node_text(node:named_child(1), 0)
+        local link_label = node_text:match "%{.-%}%[(.-)%]"
+        local destination = link_label and link_label or node_text
+
+        table.insert(headings, destination)
       end
 
       node = node:parent()
