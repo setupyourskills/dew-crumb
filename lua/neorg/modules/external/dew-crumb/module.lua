@@ -37,6 +37,7 @@ end
 
 module.config.public = {
   enabled = false,
+  separator = ">",
 }
 
 module.private = {
@@ -86,7 +87,7 @@ module.private = {
         table.insert(invert, headings[i])
       end
 
-      vim.wo.winbar = table.concat(invert, " > ")
+      vim.wo.winbar = table.concat(invert, " " .. module.config.public.separator .. " ")
     else
       vim.wo.winbar = modules.get_module("external.neorg-dew").get_title()
     end
