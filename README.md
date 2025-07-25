@@ -37,6 +37,7 @@ Make sure all of them are loaded through Neorg’s module system in your config:
 ["external.dew-crumb"] = {
     config = {
         enabled = true, -- Enable or disable the module on startup
+        separator = ">", -- The character to use as a separator
     },
 },
 ```
