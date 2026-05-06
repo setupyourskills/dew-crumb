@@ -1,11 +1,11 @@
 local neorg = require "neorg.core"
 local modules = neorg.modules
 
-local ts_utils = require "nvim-treesitter.ts_utils"
-
 local api = vim.api
 local augroup = api.nvim_create_augroup
 local autocmd = api.nvim_create_autocmd
+
+local treesitter = vim.treesitter
 
 local module = modules.create "external.dew-crumb"
 
@@ -69,17 +69,25 @@ module.private = {
   end,
 
   crumb = function()
-    local node = ts_utils.get_node_at_cursor()
+    local node = treesitter.get_node()
+
+    if not node then
+      return
+    end
 
     local headings = {}
 
     while node do
       if node:type():match "^heading%d$" then
-        local node_text = vim.treesitter.get_node_text(node:named_child(1), 0)
-        local link_label = node_text:match "%{.-%}%[(.-)%]"
-        local destination = link_label and link_label or node_text
+        local title_node = node:named_child(1)
 
-        table.insert(headings, destination)
+        if title_node then
+          local node_text = treesitter.get_node_text(title_node, 0)
+          local link_label = node_text:match "%{.-%}%[(.-)%]"
+          local destination = link_label or node_text
+
+          table.insert(headings, destination)
+        end
       end
 
       node = node:parent()
